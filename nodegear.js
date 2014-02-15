@@ -37,15 +37,6 @@ redisClient.on("message", function(channel, message) {
     //xmppClient.send();
 });
 
-gearJob.on('workData', function(data) {
-    console.log('WORK_DATA >>> ' + data);
-});
-
-gearJob.on('complete', function() {
-    console.log('RESULT >>> ' + gearJob.response);
-    gearClient.close();
-});
-
 xmppClient.on('online', function() {
     console.log("online");
 });
@@ -57,11 +48,11 @@ xmppClient.on('connection', function() {
 xmppClient.on('stanza',
         function(stanza) {
             if (stanza.is('message') &&
-// Best to ignore an error
-                    stanza.attrs.type !== 'error') {
+                // Best to ignore an error
+                stanza.attrs.type !== 'error') {
 
                 console.log("Message received");
-//Message format as per here: https://developer.android.com/google/gcm/ccs.html#upstream
+                //Message format as per here: https://developer.android.com/google/gcm/ccs.html#upstream
                 var messageData = JSON.parse(stanza.getChildText("gcm"));
 
                 if (messageData && messageData.message_type != "ack" && messageData.message_type != "nack") {
@@ -71,18 +62,18 @@ xmppClient.on('stanza',
                         "message_id": messageData.message_id,
                         "message_type": "ack"
                     }));
-//send back the ack.
+                    //send back the ack.
                     xmppClient.send(ackMsg);
                     console.log("Sent ack");
                     //receive messages from ccs and give it to PHP workers
-                    gearJob = gearClient.submitJob('reverse', messageData, {background: true});
+                    gearClient.submitJob('reverse', messageData, {background: true});
                     //Now do something useful here with the message
                     //e.g. awesomefunction(messageData);
                     //but let's just log it.
                     console.log(messageData);
 
                 } else {
-//Need to do something more here for a nack.
+                    //Need to do something more here for a nack.
                     console.log("message was an ack or nack...discarding");
                 }
 
