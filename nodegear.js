@@ -10,7 +10,7 @@ var redisClient;
 var xmppClient;
 var gearClient;
 
-gearClient = gearmanode.client();
+//gearClient = gearmanode.client();
 
 xmppClient = new xmpp.Client({
     jid: '1026645507924',
