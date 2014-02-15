@@ -10,7 +10,8 @@ var redisClient;
 var xmppClient;
 var gearClient;
 
-//gearClient = gearmanode.client();
+gearClient = gearmanode.client();
+
 var options = {
     type: 'client',
     jid: '1026645507924@gcm.googleapis.com',
@@ -25,18 +26,17 @@ console.log('creating xmpp app');
 
 xmppClient = new xmpp.Client(options);
 
-//xmppClient.connection.socket.setTimeout(0)
-//xmppClient.connection.socket.setKeepAlive(true, 10000)
+xmppClient.connection.socket.setTimeout(0)
+xmppClient.connection.socket.setKeepAlive(true, 10000)
 
-//redisClient = redis.createClient();
-//redisClient.subscribe(redisSubChan);
+redisClient = redis.createClient();
+redisClient.subscribe(redisSubChan);
 
-//redisClient.on("message", function(channel, message) {
+redisClient.on("message", function(channel, message) {
 //send the messages to google ccs server via xmpp
-//});
+});
 
 //receive messages from ccs and give it to PHP workers
-/*
  gearJob = gearClient.submitJob('reverse', message, {background: true});
  
  gearJob.on('workData', function(data) {
@@ -47,7 +47,7 @@ xmppClient = new xmpp.Client(options);
  console.log('RESULT >>> ' + gearJob.response);
  gearClient.close();
  });
- */
+
 xmppClient.on('online', function() {
     console.log("online");
 });
@@ -74,7 +74,7 @@ xmppClient.on('stanza',
                         "message_type": "ack"
                     }));
 //send back the ack.
-                    cl.send(ackMsg);
+                    xmppClient.send(ackMsg);
                     console.log("Sent ack");
 
 //Now do something useful here with the message
