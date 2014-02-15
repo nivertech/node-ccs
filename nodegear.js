@@ -31,7 +31,8 @@ redisClient.on("message", function(channel, message) {
 });
 
 //receive messages from ccs and give it to PHP workers
-//gearJob = gearClient.submitJob('reverse', message, {background: true});
+/*
+gearJob = gearClient.submitJob('reverse', message, {background: true});
 
 gearJob.on('workData', function(data) {
     console.log('WORK_DATA >>> ' + data);
@@ -41,6 +42,7 @@ gearJob.on('complete', function() {
     console.log('RESULT >>> ' + gearJob.response);
     gearClient.close();
 });
+*/
 
 xmppClient.on('connection', function() {
     console.log('online')
