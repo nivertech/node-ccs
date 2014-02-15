@@ -1,5 +1,5 @@
 //var gearmanode = require('gearmanode');
-var redis = require("redis");
+//var redis = require("redis");
 var xmpp = require('node-xmpp-client');
 
 var gearJob;
@@ -20,15 +20,15 @@ xmppClient = new xmpp.Client({
     saslmech: 'PLAIN'
 });
 
-xmppClient.connection.socket.setTimeout(0)
-xmppClient.connection.socket.setKeepAlive(true, 10000)
+//xmppClient.connection.socket.setTimeout(0)
+//xmppClient.connection.socket.setKeepAlive(true, 10000)
 
-redisClient = redis.createClient();
-redisClient.subscribe(redisSubChan);
+//redisClient = redis.createClient();
+//redisClient.subscribe(redisSubChan);
 
-redisClient.on("message", function(channel, message) {
+//redisClient.on("message", function(channel, message) {
     //send the messages to google ccs server via xmpp
-});
+//});
 
 //receive messages from ccs and give it to PHP workers
 /*
