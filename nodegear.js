@@ -12,7 +12,7 @@ var gearClient;
 
 gearClient = gearmanode.client();
 
-xmppClient = xmpp.client({
+xmppClient = xmpp.Client({
     jid: '1026645507924',
     password: 'AIzaSyDxf8TTgcl4KLHv-4HsEp8nUmnjENMTt6A',
     port: 5235,
