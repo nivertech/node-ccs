@@ -12,7 +12,7 @@ var gearClient;
 
 gearClient = gearmanode.client();
 
-xmppClient = xmpp.Client({
+xmppClient = xmpp.client({
     jid: '1026645507924',
     password: 'AIzaSyDxf8TTgcl4KLHv-4HsEp8nUmnjENMTt6A',
     port: 5235,
@@ -31,7 +31,7 @@ redisClient.on("message", function(channel, message) {
 });
 
 //receive messages from ccs and give it to PHP workers
-gearJob = gearClient.submitJob('reverse', message, {background: true});
+//gearJob = gearClient.submitJob('reverse', message, {background: true});
 
 gearJob.on('workData', function(data) {
     console.log('WORK_DATA >>> ' + data);
