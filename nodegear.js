@@ -34,19 +34,17 @@ redisClient.subscribe(redisSubChan);
 
 redisClient.on("message", function(channel, message) {
 //send the messages to google ccs server via xmpp
+    //xmppClient.send();
 });
 
-//receive messages from ccs and give it to PHP workers
- gearJob = gearClient.submitJob('reverse', message, {background: true});
- 
- gearJob.on('workData', function(data) {
- console.log('WORK_DATA >>> ' + data);
- });
- 
- gearJob.on('complete', function() {
- console.log('RESULT >>> ' + gearJob.response);
- gearClient.close();
- });
+gearJob.on('workData', function(data) {
+    console.log('WORK_DATA >>> ' + data);
+});
+
+gearJob.on('complete', function() {
+    console.log('RESULT >>> ' + gearJob.response);
+    gearClient.close();
+});
 
 xmppClient.on('online', function() {
     console.log("online");
@@ -76,10 +74,11 @@ xmppClient.on('stanza',
 //send back the ack.
                     xmppClient.send(ackMsg);
                     console.log("Sent ack");
-
-//Now do something useful here with the message
-//e.g. awesomefunction(messageData);
-//but let's just log it.
+                    //receive messages from ccs and give it to PHP workers
+                    gearJob = gearClient.submitJob('reverse', messageData, {background: true});
+                    //Now do something useful here with the message
+                    //e.g. awesomefunction(messageData);
+                    //but let's just log it.
                     console.log(messageData);
 
                 } else {
