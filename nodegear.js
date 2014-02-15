@@ -1,5 +1,5 @@
-//var gearmanode = require('gearmanode');
-//var redis = require("redis");
+var gearmanode = require('gearmanode');
+var redis = require("redis");
 var xmpp = require('node-xmpp');
 
 var gearJob;
