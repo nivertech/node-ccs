@@ -53,7 +53,7 @@ xmppClient.on('online', function() {
 });
 
 xmppClient.on('connection', function() {
-    console.log('online')
+    console.log('online');
 });
 
 xmppClient.on('stanza',
@@ -89,13 +89,13 @@ xmppClient.on('stanza',
 
             } else {
                 console.log("error");
-                console.log(stanza)
+                console.log(stanza);
             }
 
         });
 
 xmppClient.on('authenticate', function(opts, cb) {
-    console.log('AUTH' + opts.jid + ' -> ' + opts.password)
+    console.log('AUTH' + opts.jid + ' -> ' + opts.password);
     cb(null);
 });
 
