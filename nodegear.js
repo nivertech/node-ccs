@@ -1,4 +1,4 @@
-var gearmanode = require('gearmanode');
+//var gearmanode = require('gearmanode');
 var redis = require("redis");
 var xmpp = require('node-xmpp-client');
 
