@@ -33,8 +33,17 @@ redisClient = redis.createClient();
 redisClient.subscribe(redisSubChan);
 
 redisClient.on("message", function(channel, message) {
-//send the messages to google ccs server via xmpp
-    //xmppClient.send();
+    //send the messages to google ccs server via xmpp
+
+    var ackToDevice = new xmpp.Element('message').c('gcm', {xmlns: 'google:mobile:data'}).t(JSON.stringify({
+        "to": message.to,
+        "message_id": message.message_id,
+        "data": message.data,
+        "time_to_live": message.time_to_live,
+        "delay_while_idle": message.delay_while_idle
+    }));
+    
+    xmppClient.send(ackToDevice);
 });
 
 xmppClient.on('online', function() {
@@ -48,8 +57,8 @@ xmppClient.on('connection', function() {
 xmppClient.on('stanza',
         function(stanza) {
             if (stanza.is('message') &&
-                // Best to ignore an error
-                stanza.attrs.type !== 'error') {
+                    // Best to ignore an error
+                    stanza.attrs.type !== 'error') {
 
                 console.log("Message received");
                 //Message format as per here: https://developer.android.com/google/gcm/ccs.html#upstream
@@ -66,10 +75,7 @@ xmppClient.on('stanza',
                     xmppClient.send(ackMsg);
                     console.log("Sent ack");
                     //receive messages from ccs and give it to PHP workers
-                    gearClient.submitJob('reverse', messageData, {background: true});
-                    //Now do something useful here with the message
-                    //e.g. awesomefunction(messageData);
-                    //but let's just log it.
+                    //gearClient.submitJob(gearmanJobName, messageData, {background: true});
                     console.log(messageData);
 
                 } else {
