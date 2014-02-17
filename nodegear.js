@@ -41,7 +41,7 @@ redisClient.on("message", function(channel, message) {
         "time_to_live": message.time_to_live,
         "delay_while_idle": message.delay_while_idle
     }));
-    
+
     xmppClient.send(ackToDevice);
 });
 
@@ -72,7 +72,10 @@ xmppClient.on('stanza',
                     xmppClient.send(ackMsg);
                     console.log("Sent ack");
                     //receive messages from ccs and give it to PHP workers
-                    gearClient.submitJob(gearmanJobName, messageData, {background: true});
+                    var job = gearClient.submitJob(gearmanJobName, messageData, {background: true});
+                    job.on('complete', function() {
+                        console.log('RESULT: ' + job.response);
+                    });
                     console.log(messageData);
 
                 } else {
