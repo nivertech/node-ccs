@@ -33,6 +33,7 @@ redisClient = redis.createClient();
 redisClient.subscribe(redisSubChan);
 
 redisClient.on("message", function(channel, message) {
+    console.log(message);
     //send the messages to google ccs server via xmpp
     var ackToDevice = new xmpp.Element('message').c('gcm', {xmlns: 'google:mobile:data'}).t(JSON.stringify({
         "to": message.to,
