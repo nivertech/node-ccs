@@ -26,8 +26,8 @@ console.log('creating xmpp app');
 
 xmppClient = new xmpp.Client(options);
 
-xmppClient.connection.socket.setTimeout(0)
-xmppClient.connection.socket.setKeepAlive(true, 10000)
+//xmppClient.connection.socket.setTimeout(0)
+//xmppClient.connection.socket.setKeepAlive(true, 10000)
 
 redisClient = redis.createClient();
 redisClient.subscribe(redisSubChan);
