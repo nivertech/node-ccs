@@ -72,7 +72,7 @@ xmppClient.on('stanza',
                     xmppClient.send(ackMsg);
                     console.log("Sent ack");
                     //receive messages from ccs and give it to PHP workers
-                    var job = gearClient.submitJob(gearmanJobName, messageData, {background: true});
+                    var job = gearClient.submitJob(gearmanJobName, JSON.stringify(messageData), {background: true});
                     job.on('complete', function() {
                         console.log('RESULT: ' + job.response);
                     });
