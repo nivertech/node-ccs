@@ -26,8 +26,8 @@ console.log('creating xmpp app');
 
 xmppClient = new xmpp.Client(options);
 
-//xmppClient.connection.socket.setTimeout(0)
-//xmppClient.connection.socket.setKeepAlive(true, 10000)
+xmppClient.connection.socket.setTimeout(0)
+xmppClient.connection.socket.setKeepAlive(true, 10000)
 
 redisClient = redis.createClient();
 redisClient.subscribe(redisSubChan);
@@ -42,7 +42,7 @@ redisClient.on("message", function(channel, message) {
         "time_to_live": message.time_to_live,
         "delay_while_idle": message.delay_while_idle
     }));
-
+    console.log(ackToDevice);
     xmppClient.send(ackToDevice);
 });
 
